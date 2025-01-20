@@ -7,9 +7,8 @@ path = "E:/Quanitifying EMG/Summary-Spinal Loads.csv"
 # path = "E:/Quanitifying EMG/Summary-motion.csv"
 data = pd.read_csv(path)
 variable = 'SuperiorResultant'
-sorted_decades = sorted(data['Decade'].unique())  # Ensures natural numeric order
+sorted_decades = sorted(data['Decade'].unique())
 
-# Ensure Decade is treated as a categorical variable in sorted order
 data['Decade'] = pd.Categorical(data['Decade'], categories=sorted_decades, ordered=True)
 # Normalizze by weight
 # data[variable] = data[variable]/data['Weight']

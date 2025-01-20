@@ -11,8 +11,15 @@ numpy = "*"
 scikit-learn = "*"
 seaborn = "*"
 matplotlib = "*"
+ipywidgets = "==7.7.1"
+plotly = "*"
+mplcursors = "*"
+ipympl = "*"
+jupyterlab-widgets = "*"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"
+# pipenv: C:/Users/hani.4/AppData/Local/Programs/Python/Python311/Scripts/pipenv.exe

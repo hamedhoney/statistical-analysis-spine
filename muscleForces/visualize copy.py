@@ -25,17 +25,9 @@ plt.figure(figsize=(16, 4 * len(unique_muscles)))
 # Create subplot for each muscle
 for i, muscle in enumerate(unique_muscles, 1):
     plt.subplot(len(unique_muscles), 1, i)
-    
-    # Filter data for specific muscle
     muscle_controls = controls_data[controls_data['Muscle'] == muscle]
-    
-    # Create boxplot
     sns.boxplot(x='Decade', y=variable, hue='Sex', data=muscle_controls, palette='coolwarm')
-    
-    # Set title to indicate muscle
-    plt.title(f'Boxplot of {variable} by Decade and Sex for {muscle}')
-    
-    # Rotate x-axis labels if needed
+    plt.title(f'{variable} by Decade and Sex for {muscle}')
     plt.xticks(rotation=45)
 
 # Adjust layout and show plot
