@@ -1,6 +1,6 @@
 import pandas as pd
 import statsmodels.api as sm
-from statsmodels.formula.api import ols
+from statsmodels.formula.api import ols, mixedlm
 from statsmodels.stats.anova import anova_lm, AnovaRM
 from statsmodels.regression.mixed_linear_model import MixedLMResults
 import matplotlib.pyplot as plt
@@ -22,11 +22,16 @@ controls_data = data[data['Status'] == 'Control']
 female_data = controls_data[controls_data['Sex'] == 'FEMALE']
 
 # Fit a three-way ANOVA model
-model = ols('SuperiorLateralShear ~ C(Decade) + C(Status) + C(Sex) +C(Decade)*C(Status) + C(Status)*C(Sex) + C(Decade)*C(Sex)', data=data).fit()
-
-# Perform ANOVA
+model = ols(' SuperiorLateralShear ~ C(Decade) + C(Status) + C(Sex) +C(Decade)*C(Status) + C(Status)*C(Sex) + C(Decade)*C(Sex)', data=data).fit()
 anova_results = anova_lm(model, typ=2)
 print(anova_results)
+model = mixedlm(
+    'SuperiorLateralShear ~ C(Decade) + C(Status) + C(Sex) +C(Decade)*C(Status) + C(Status)*C(Sex) + C(Decade)*C(Sex)', 
+    data=data,
+    groups=data['Subject'],    
+)
+result = model.fit()
+print(result.summary())
 
 from statsmodels.stats.multicomp import pairwise_tukeyhsd
 

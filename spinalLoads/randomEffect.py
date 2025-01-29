@@ -19,12 +19,15 @@ data['Decade'] = pd.Categorical(data['Decade'], categories=sorted_decades, order
 data['Sex'] = data['Sex'].astype('category')
 data['Status'] = data['Status'].astype('category')
 model = mixedlm('SuperiorResultant ~ C(Decade)+C(Sex)+C(Status)', data, groups=data['Subject']).fit()
-# Fit a mixed-effects model with Subject as a random effect
-mixed_model = MixedLM.from_formula('SuperiorResultant ~ C(Decade)+C(Sex)+C(Status)', 
-                                   groups=data['Subject'], data=data).fit()
 print(model.summary())
-print(mixed_model.summary())
 print(model.cov_re)
+# Fit a mixed-effects model with Subject as a random effect
+mixed_model = MixedLM.from_formula(
+    'SuperiorLateralShear ~ C(Decade) + C(Status) + C(Sex) +C(Decade)*C(Status) + C(Status)*C(Sex) + C(Decade)*C(Sex)',
+    groups=data['Subject'],
+    data=data,
+).fit()
+print(mixed_model.summary())
 
 # Extract random effect variance
 # random_effect_variance = model.cov_re.iloc[0, 0]
